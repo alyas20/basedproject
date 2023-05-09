@@ -1,0 +1,4 @@
+new setup:
+1- npm install -g @angular/cli
+2- Remove ng.ps1 from the directory C:\Users\%username%\AppData\Roaming\npm\ then try clearing the npm cache at C:\Users\%username%\AppData\Roaming\npm-cache\
+3- ng new ui-based-project-angular
