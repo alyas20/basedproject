@@ -1,13 +1,13 @@
-package com.alyas.basedproject;
+package com.alyas20.basedproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BasedprojectApplication {
+public class BasedProjectApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BasedprojectApplication.class, args);
+		SpringApplication.run(BasedProjectApplication.class, args);
 	}
 
 }
