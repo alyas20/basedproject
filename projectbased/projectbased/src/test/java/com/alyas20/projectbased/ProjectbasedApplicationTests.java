@@ -1,10 +1,10 @@
-package com.alyas20.basedproject;
+package com.alyas20.projectbased;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BasedProjectApplicationTests {
+class ProjectbasedApplicationTests {
 
 	@Test
 	void contextLoads() {
