@@ -1,4 +1,4 @@
-package com.alyas20.projectbased.core.security.entity;
+package com.alyas20.projectbased.core.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
@@ -14,10 +15,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "user99_roles")
-public class UserRole {
+public class UserRole implements Serializable {
+    private static final long serialVersionUID = 2405172041950251807L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_cd",nullable = false, length = 10)
+    @Column(name = "role_cd", nullable = false, length = 10)
     private String roleCode;
     @Column(name = "role_desc", length = 10)
     private String roleDesc;

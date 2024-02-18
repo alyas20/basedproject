@@ -1,11 +1,10 @@
 package com.alyas20.projectbased.core.security.securityController;
 
-import com.alyas20.projectbased.core.security.bean.AuthDTO;
-import com.alyas20.projectbased.core.security.entity.AuthUser;
+import com.alyas20.projectbased.core.security.dto.AuthDTO;
 import com.alyas20.projectbased.core.security.service.AuthService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,13 +23,21 @@ public class AuthController {
 
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
+
+    private final MessageSource messageSource;
+    private final AuthenticationManager authenticationManager;
+    private final AuthService authService;
     @Autowired
-    private AuthService authService;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    public AuthController(AuthService authService, AuthenticationManager authenticationManager, MessageSource messageSource) {
+        this.authService = authService;
+        this.authenticationManager = authenticationManager;
+        this.messageSource = messageSource;
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthDTO.LoginRequest userLogin) throws IllegalAccessException {
+    public ResponseEntity<AuthDTO.LoginResponse> login(@RequestBody AuthDTO.LoginRequest userLogin) {
+        Authentication earlyAuth = new UsernamePasswordAuthenticationToken(userLogin.username(), userLogin.password());
+        SecurityContextHolder.getContext().setAuthentication(earlyAuth);
         Authentication authentication =
                 authenticationManager
                         .authenticate(new UsernamePasswordAuthenticationToken(
@@ -38,13 +45,10 @@ public class AuthController {
                                 userLogin.password()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        AuthUser userDetails = (AuthUser) authentication.getPrincipal();
-
-
-        log.info("Token requested for user :{}", authentication.getAuthorities());
+        log.debug("Token requested for user :{}", authentication.getAuthorities());
         String token = authService.generateToken(authentication);
 
-        AuthDTO.Response response = new AuthDTO.Response("User logged in successfully", token);
+        AuthDTO.LoginResponse response = new AuthDTO.LoginResponse(messageSource.getMessage("login.success", null, null), token);
 
         return ResponseEntity.ok(response);
     }
