@@ -1,7 +1,8 @@
 package com.alyas20.projectbased.core.security.securityController;
 
 import com.alyas20.projectbased.core.security.dto.AuthDTO;
-import com.alyas20.projectbased.core.security.service.AuthService;
+import com.alyas20.projectbased.core.security.service.JwtService;
+import com.alyas20.projectbased.core.security.service.UserSecurityService;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -10,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +28,16 @@ public class AuthController {
 
     private final MessageSource messageSource;
     private final AuthenticationManager authenticationManager;
-    private final AuthService authService;
+    private final UserSecurityService userSecurityService;
+    private final JwtService jwtService;
+
     @Autowired
-    public AuthController(AuthService authService, AuthenticationManager authenticationManager, MessageSource messageSource) {
-        this.authService = authService;
+    public AuthController(AuthenticationManager authenticationManager, MessageSource messageSource,
+                          UserSecurityService userSecurityService, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
         this.messageSource = messageSource;
+        this.userSecurityService = userSecurityService;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
@@ -41,12 +47,12 @@ public class AuthController {
         Authentication authentication =
                 authenticationManager
                         .authenticate(new UsernamePasswordAuthenticationToken(
-                                userLogin.username(),
+                                userSecurityService.loadUserByUsername(userLogin.username()),
                                 userLogin.password()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         log.debug("Token requested for user :{}", authentication.getAuthorities());
-        String token = authService.generateToken(authentication);
+        String token = jwtService.generateToken((UserDetails) authentication.getPrincipal());
 
         AuthDTO.LoginResponse response = new AuthDTO.LoginResponse(messageSource.getMessage("login.success", null, null), token);
 
