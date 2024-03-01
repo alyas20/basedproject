@@ -1,0 +1,22 @@
+{
+  "home": {
+    "title": "Advertisement Management System"
+  },
+  "navigation": {
+    "home": "Home",
+    "advertisements": "Advertisements"
+  },
+  "hero": {
+    "welcomeMessage": "Welcome to Your Advertisement Management System",
+    "subtitle": "Manage your advertisements effectively with our intuitive platform.",
+    "ctaButton": "Get Started"
+  },
+  "features": {
+    "title": "Key Features",
+    "userAuth": "User Authentication",
+    "advertisementManagement": "Advertisement Management"
+  },
+  "footer": {
+    "copyright": "© 2024 Advertisement Management System. All rights reserved."
+  }
+}
