@@ -1,0 +1,44 @@
+<div class="home-page" *ngIf="translations">
+  <header class="header">
+    <div class="logo">
+      <!-- Access properties using bracket notation -->
+      <h1>{{ translations['home']?.['title'] }}</h1>
+    </div>
+    <nav class="nav-menu">
+      <ul>
+        <!-- Similarly, access other properties using bracket notation -->
+        <li><a routerLink="/">{{ translations['navigation']?.['home'] }}</a></li>
+        <li><a routerLink="/advertisements">{{ translations['navigation']?.['advertisements'] }}</a></li>
+        <!-- Add more navigation links as needed -->
+      </ul>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="hero">
+      <div class="hero-content">
+        <!-- Access properties using bracket notation -->
+        <h2>{{ translations['hero']?.['welcomeMessage'] }}</h2>
+        <p>{{ translations['hero']?.['subtitle'] }}</p>
+        <a class="cta-button" routerLink="/advertisements">{{ translations['hero']?.['ctaButton'] }}</a>
+      </div>
+    </section>
+
+    <section class="features">
+      <!-- Access properties using bracket notation -->
+      <h2>{{ translations['features']?.['title'] }}</h2>
+      <div class="feature-list">
+        <div class="feature-item">
+          <h3>{{ translations['features']?.['userAuth'] }}</h3>
+          <p>{{ translations['features']?.['advertisementManagement'] }}</p>
+        </div>
+        <!-- Add more features as needed -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <!-- Access properties using bracket notation -->
+    <p>{{ translations['footer']?.['copyright'] }}</p>
+  </footer>
+</div>
