@@ -10,9 +10,22 @@
         <li><a routerLink="/">{{ translations['navigation']?.['home'] }}</a></li>
         <li><a routerLink="/advertisements">{{ translations['navigation']?.['advertisements'] }}</a></li>
         <!-- Add more navigation links as needed -->
+             <!-- Add more navigation links as needed -->
+        <li><a (click)="showLoginModal()">Login</a></li>
       </ul>
     </nav>
   </header>
+
+  <!-- Login Modal -->
+  <div class="modal" *ngIf="showLoginModalFlag">
+    <div class="modal-content">
+      <!-- <span class="close" (click)="hideLoginModal()">&times;</span> -->
+      <app-login
+      (loginSuccess)="handleLoginSuccess($event)"
+      (loginClose)="handleLoginClose($event)">
+      </app-login>
+    </div>
+  </div>
 
   <main class="main-content">
     <section class="hero">
