@@ -18,5 +18,10 @@
   },
   "footer": {
     "copyright": "© 2024 Advertisement Management System. All rights reserved."
+  },
+  "login": {
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "loginButton": "Login"
   }
 }
