@@ -1,6 +1,5 @@
 package com.alyas20.projectbased.core.security.service;
 
-import com.alyas20.projectbased.core.security.config.JwtAuthenticationFilter;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -9,10 +8,12 @@ import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,10 +38,15 @@ public class JwtServiceImpl implements  JwtService{
 
     @Override
     public boolean isTokenValid(String token, UserDetails userDetails) {
-        log.info("jwtSigningKey", jwtSigningKey);
-        log.info("token", token);
         final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    }
+    @Override
+    public UserDetails extractUserDetails(String token) {
+        Claims claims = extractAllClaims(token);
+        String username = claims.getSubject();
+        UserDetails userDetails = new User(username, "", new ArrayList<>());
+        return userDetails;
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
@@ -51,7 +57,7 @@ public class JwtServiceImpl implements  JwtService{
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         return Jwts.builder().setClaims(extraClaims).setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 5))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
