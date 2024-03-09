@@ -21,7 +21,6 @@ public class UserController {
     }
 
     @Operation(summary = "Delete user", description = "Delete user")
-    @SecurityRequirement(name = "Bearer Authentication")
     @GetMapping("/email")
     public ResponseEntity<UserDTO.userRespond> getEmail(@RequestParam String userId) {
         UserDTO.userRespond respond = new UserDTO.userRespond(null,null,userService.getEmail(userId));

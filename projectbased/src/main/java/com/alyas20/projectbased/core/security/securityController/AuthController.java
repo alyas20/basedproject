@@ -6,6 +6,7 @@ import com.alyas20.projectbased.core.security.service.UserSecurityService;
 import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,10 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -54,8 +52,24 @@ public class AuthController {
         log.debug("Token requested for user :{}", authentication.getAuthorities());
         String token = jwtService.generateToken((UserDetails) authentication.getPrincipal());
 
-        AuthDTO.LoginResponse response = new AuthDTO.LoginResponse(messageSource.getMessage("login.success", null, null), token);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + token);
+        AuthDTO.LoginResponse response = new AuthDTO.LoginResponse(messageSource.getMessage("login.success", null, null));
 
+        return ResponseEntity.ok().headers(headers).body(response) ;
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<AuthDTO.RefreshTokenResponse> refreshToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String expiredToken) {
+        String token = extractToken(expiredToken);
+        UserDetails userDetails = jwtService.extractUserDetails(token);
+        String newToken = jwtService.generateToken(userDetails);
+        AuthDTO.RefreshTokenResponse response = new AuthDTO.RefreshTokenResponse(newToken);
         return ResponseEntity.ok(response);
     }
+
+    private String extractToken(String authorizationHeader) {
+        return authorizationHeader.replace("Bearer ", "");
+    }
+
 }

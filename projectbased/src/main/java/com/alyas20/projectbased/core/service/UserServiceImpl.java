@@ -2,6 +2,7 @@ package com.alyas20.projectbased.core.service;
 
 import com.alyas20.projectbased.core.bean.UserBean;
 import com.alyas20.projectbased.core.entity.User;
+import com.alyas20.projectbased.core.mapper.UserMapper;
 import com.alyas20.projectbased.core.repository.UserRepository;
 import com.alyas20.projectbased.core.security.exception.EncryptErrorException;
 import com.alyas20.projectbased.core.util.encryption.AES256Encryption;
@@ -56,5 +57,15 @@ public class UserServiceImpl implements UserService {
     public String getEmail(String userId) {
         User user  = userRepository.findById(userId).orElseGet(null);
         return user.getUserEmail();
+    }
+
+    @Override
+    public UserBean getUserByUserName(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(null);
+        UserBean userBean = new UserBean();
+        if (user != null) {
+            userBean = UserMapper.mapEntityToBean(user);
+        }
+        return userBean;
     }
 }
