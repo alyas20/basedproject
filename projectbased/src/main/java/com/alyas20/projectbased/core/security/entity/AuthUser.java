@@ -1,6 +1,5 @@
 package com.alyas20.projectbased.core.security.entity;
 
-import com.alyas20.projectbased.core.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

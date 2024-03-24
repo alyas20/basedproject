@@ -1,4 +1,4 @@
-package com.alyas20.projectbased.core.entity;
+package com.alyas20.projectbased.core.security.entity;
 
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.persistence.*;
@@ -28,17 +28,20 @@ public class User implements UserDetails, Serializable {
     private String username;
     @Column(name = "user_salt_key")
     private String userSaltKey;
-    @Column(name = "")
+    @Column(name = "user_email")
     private String userEmail;
     @Column(name = "user_password")
     private String userPassword;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_role_cd")
-    private UserRole role;
+    @JoinColumn(name = "user_role", insertable = false, updatable = false)
+    private UserRole userRole;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_locale", insertable = false, updatable = false)
+    private Locale locale;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.getRoleCode()));
+        return List.of(new SimpleGrantedAuthority(userRole.getRoleCode()));
     }
 
     @Override

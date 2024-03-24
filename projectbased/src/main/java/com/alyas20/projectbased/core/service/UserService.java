@@ -1,6 +1,6 @@
 package com.alyas20.projectbased.core.service;
 
-import com.alyas20.projectbased.core.bean.UserBean;
+import com.alyas20.projectbased.core.security.bean.UserBean;
 
 public interface UserService {
 

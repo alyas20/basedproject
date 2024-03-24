@@ -1,4 +1,4 @@
-package com.alyas20.projectbased.core.util.generator;
+package com.alyas20.projectbased.core.security.securityUtil.generator;
 
 import java.security.SecureRandom;
 import java.util.Base64;

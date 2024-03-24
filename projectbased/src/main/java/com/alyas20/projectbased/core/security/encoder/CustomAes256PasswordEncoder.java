@@ -1,9 +1,9 @@
 package com.alyas20.projectbased.core.security.encoder;
 
 
-import com.alyas20.projectbased.core.entity.User;
+import com.alyas20.projectbased.core.security.entity.User;
 import com.alyas20.projectbased.core.security.service.UserSecurityService;
-import com.alyas20.projectbased.core.util.encryption.AES256Encryption;
+import com.alyas20.projectbased.core.security.securityUtil.encryption.AES256Encryption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

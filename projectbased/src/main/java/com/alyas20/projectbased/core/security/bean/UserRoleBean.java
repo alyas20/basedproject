@@ -1,4 +1,4 @@
-package com.alyas20.projectbased.core.bean;
+package com.alyas20.projectbased.core.security.bean;
 
 
 import lombok.Data;
