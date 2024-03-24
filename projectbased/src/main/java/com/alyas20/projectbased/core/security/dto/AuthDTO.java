@@ -9,4 +9,8 @@ public class AuthDTO {
 
     public record RefreshTokenResponse(String message) {
     }
+
+
+    public record LogoutResponse(String message) {
+    }
 }

@@ -6,8 +6,8 @@ import java.math.BigInteger;
 
 @Data
 public class SignUpDTO {
-    public record SignUpRequest(String username,String password, String email){
+    public record SignUpRequest(String username,String password, String email,String locale){
     }
-    public record SignUpRespond(String username, Long id, String email){
+    public record SignUpRespond(String message, String username, Long id, String email){
     }
 }

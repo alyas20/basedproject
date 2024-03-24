@@ -2,7 +2,7 @@ package com.alyas20.projectbased.core.security.service;
 
 import com.alyas20.projectbased.core.security.entity.AuthUser;
 import com.alyas20.projectbased.core.security.exception.UserNotFoundException;
-import com.alyas20.projectbased.core.entity.User;
+import com.alyas20.projectbased.core.security.entity.User;
 import com.alyas20.projectbased.core.security.repository.UserSecurityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

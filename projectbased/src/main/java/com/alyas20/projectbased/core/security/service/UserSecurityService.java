@@ -1,6 +1,6 @@
 package com.alyas20.projectbased.core.security.service;
 
-import com.alyas20.projectbased.core.entity.User;
+import com.alyas20.projectbased.core.security.entity.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 

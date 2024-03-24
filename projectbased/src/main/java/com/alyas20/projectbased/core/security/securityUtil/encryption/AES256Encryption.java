@@ -1,4 +1,4 @@
-package com.alyas20.projectbased.core.util.encryption;
+package com.alyas20.projectbased.core.security.securityUtil.encryption;
 
 
 import com.alyas20.projectbased.core.security.exception.EncryptErrorException;

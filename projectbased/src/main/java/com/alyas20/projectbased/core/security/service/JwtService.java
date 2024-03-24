@@ -1,5 +1,6 @@
 package com.alyas20.projectbased.core.security.service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public interface JwtService {
@@ -10,4 +11,8 @@ public interface JwtService {
     boolean isTokenValid(String token, UserDetails userDetails);
 
     UserDetails extractUserDetails(String token);
+
+    String extractTokenByRequest(HttpServletRequest request);
+
+    String extractTokenId(String token);
 }

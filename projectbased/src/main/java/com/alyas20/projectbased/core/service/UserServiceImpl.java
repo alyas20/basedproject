@@ -1,25 +1,27 @@
 package com.alyas20.projectbased.core.service;
 
-import com.alyas20.projectbased.core.bean.UserBean;
-import com.alyas20.projectbased.core.entity.User;
+import com.alyas20.projectbased.core.security.bean.UserBean;
+import com.alyas20.projectbased.core.security.entity.User;
 import com.alyas20.projectbased.core.mapper.UserMapper;
 import com.alyas20.projectbased.core.repository.UserRepository;
 import com.alyas20.projectbased.core.security.exception.EncryptErrorException;
-import com.alyas20.projectbased.core.util.encryption.AES256Encryption;
-import com.alyas20.projectbased.core.util.generator.SaltKeyGenerator;
+import com.alyas20.projectbased.core.security.securityUtil.encryption.AES256Encryption;
+import com.alyas20.projectbased.core.security.securityUtil.generator.SaltKeyGenerator;
+import com.alyas20.projectbased.core.security.service.TranslatorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final MessageSource messageSource;
+    private final TranslatorService translatorService;
+    private final LocaleService localeService;
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, MessageSource messageSource ) {
+    public UserServiceImpl(UserRepository userRepository, TranslatorService translatorService, LocaleService localeService ) {
         this.userRepository = userRepository;
-        this.messageSource = messageSource;
+        this.translatorService = translatorService;
+        this.localeService = localeService;
     }
 
     @Override
@@ -36,15 +38,15 @@ public class UserServiceImpl implements UserService {
         } catch (EncryptErrorException e) {
             e.printStackTrace();
         }
-
         User user = new User();
         user.setUsername(userBean.getUsername());
         user.setUserPassword(encryptPassword);
         user.setUserSaltKey(saltKey);
         user.setUserEmail(userBean.getUserEmail());
+        user.setLocale(localeService.getLocaleByCode(userBean.getLocaleString()));
         userRepository.save(user);
 
-        messageReponse = messageSource.getMessage("signup.completed", null, null);
+        messageReponse = translatorService.toLocale("signup.completed");
         UserBean responseBean = new UserBean();
         responseBean.setUsername(user.getUsername());
         responseBean.setUserId(user.getUserId());
