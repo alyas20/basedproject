@@ -4,7 +4,7 @@ import com.alyas20.projectbased.core.dto.DashboardDTO;
 import com.alyas20.projectbased.core.security.service.TranslatorService;
 import com.alyas20.projectbased.core.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,15 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/dashboard")
+@RequiredArgsConstructor
 public class DashboardController {
     private final UserService userService;
     private final TranslatorService translatorService;
-
-    @Autowired
-    public DashboardController(UserService userService, TranslatorService translatorService) {
-        this.userService = userService;
-        this.translatorService = translatorService;
-    }
 
     @Operation(summary = "Get Main Dashboard", description = "Get dashboard main info such as user class")
     @GetMapping("/main")

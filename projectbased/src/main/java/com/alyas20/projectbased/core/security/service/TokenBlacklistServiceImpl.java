@@ -1,14 +1,14 @@
 package com.alyas20.projectbased.core.security.service;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
+@Service
 public class TokenBlacklistServiceImpl implements TokenBlacklistService {
 
-    private Map<String,String> invalidatedTokens = new HashMap<>();
+    private final Map<String,String> invalidatedTokens = new HashMap<>();
 
     @Override
     public synchronized void invalidateToken(String userName,String tokenId) {

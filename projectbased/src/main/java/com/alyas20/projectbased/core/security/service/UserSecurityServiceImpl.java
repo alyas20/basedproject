@@ -4,7 +4,7 @@ import com.alyas20.projectbased.core.security.entity.AuthUser;
 import com.alyas20.projectbased.core.security.exception.UserNotFoundException;
 import com.alyas20.projectbased.core.security.entity.User;
 import com.alyas20.projectbased.core.security.repository.UserSecurityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserSecurityServiceImpl implements UserSecurityService , UserDetailsService {
 
     /**
@@ -20,10 +21,6 @@ public class UserSecurityServiceImpl implements UserSecurityService , UserDetail
      **/
 
     private final UserSecurityRepository userSecurityRepository;
-    @Autowired
-    public UserSecurityServiceImpl(UserSecurityRepository userSecurityRepository) {
-        this.userSecurityRepository = userSecurityRepository;
-    }
 
     @Override
     public User getUserByUsername(String username) {

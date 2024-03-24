@@ -25,7 +25,7 @@ public class JwtServiceImpl implements  JwtService{
 
     @Override
     public String extractUserName(String token) {
-        log.info("jwtSigningKey", jwtSigningKey);
+        log.debug("jwtSigningKey {} : ", jwtSigningKey);
         return extractClaim(token, Claims::getSubject);
     }
 
@@ -43,8 +43,7 @@ public class JwtServiceImpl implements  JwtService{
     public UserDetails extractUserDetails(String token) {
         Claims claims = extractAllClaims(token);
         String username = claims.getSubject();
-        UserDetails userDetails = new User(username, "", new ArrayList<>());
-        return userDetails;
+        return new User(username, "", new ArrayList<>());
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {

@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 public class CustomAes256PasswordEncoder implements PasswordEncoder {
     private static final Logger log = LoggerFactory.getLogger(CustomAes256PasswordEncoder.class);
 
-
     @Autowired
     private UserSecurityService userSecurityService;
+
 
     @Override
     public String encode(CharSequence rawPassword) {
