@@ -4,7 +4,7 @@ import com.alyas20.projectbased.core.security.bean.UserBean;
 import com.alyas20.projectbased.core.dto.SignUpDTO;
 import com.alyas20.projectbased.core.security.service.TranslatorService;
 import com.alyas20.projectbased.core.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,15 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
+@RequiredArgsConstructor
 public class FirstTimeController {
     private final UserService userService;
     private final TranslatorService translatorService;
-
-    @Autowired
-    public FirstTimeController(UserService userService, TranslatorService translatorService) {
-        this.userService = userService;
-        this.translatorService = translatorService;
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<SignUpDTO.SignUpRespond> signUp(@RequestBody SignUpDTO.SignUpRequest request) {

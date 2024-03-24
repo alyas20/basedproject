@@ -6,8 +6,8 @@ import com.alyas20.projectbased.core.security.bean.RefreshTokenBean;
 
 public interface AuthService {
 
-    public LoginBean login(LoginBean loginBean);
-    public LogoutBean logout(LogoutBean logoutBean);
+    LoginBean login(LoginBean loginBean);
+    LogoutBean logout(LogoutBean logoutBean);
 
-    public RefreshTokenBean refreshToken (RefreshTokenBean refreshTokenBean);
+    RefreshTokenBean refreshToken (RefreshTokenBean refreshTokenBean);
 }

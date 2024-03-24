@@ -3,19 +3,15 @@ package com.alyas20.projectbased.core.controller;
 import com.alyas20.projectbased.core.dto.UserDTO;
 import com.alyas20.projectbased.core.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/user")
+@RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @Operation(summary = "Delete user", description = "Delete user")
     @GetMapping("/email")

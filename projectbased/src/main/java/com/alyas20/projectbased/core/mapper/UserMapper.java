@@ -4,6 +4,9 @@ import com.alyas20.projectbased.core.security.bean.UserBean;
 import com.alyas20.projectbased.core.security.entity.User;
 
 public class UserMapper {
+    private UserMapper() {
+        throw new IllegalStateException("Utility class");
+    }
     public static UserBean mapEntityToBean(User user) {
         UserBean userBean = new UserBean();
         userBean.setUserId(user.getUserId());

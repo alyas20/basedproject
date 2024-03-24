@@ -4,5 +4,5 @@ import com.alyas20.projectbased.core.security.entity.Locale;
 
 public interface LocaleService {
 
-    public Locale getLocaleByCode(String localeCode);
+    Locale getLocaleByCode(String localeCode);
 }
